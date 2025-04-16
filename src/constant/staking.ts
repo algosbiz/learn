@@ -1,4 +1,5 @@
-export const STAKING_CONTRACT_ADDRESS = "0x8492D8E17F3e520e171682D792B0eb79dC126B4E";
+export const STAKING_CONTRACT_ADDRESS =
+  "0x8492D8E17F3e520e171682D792B0eb79dC126B4E";
 
 export const STAKING_ABI = [
   {
@@ -10,6 +11,16 @@ export const STAKING_ABI = [
     ],
     stateMutability: "nonpayable",
     type: "constructor",
+  },
+  {
+    inputs: [{ internalType: "address", name: "staker", type: "address" }],
+    name: "getStakeInfo",
+    outputs: [
+      { internalType: "uint256", name: "tokensStaked", type: "uint256" },
+      { internalType: "uint256", name: "rewards", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
   {
     anonymous: false,
