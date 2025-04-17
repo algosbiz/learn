@@ -1,23 +1,14 @@
-import { defineChain, getContract } from "thirdweb";
+import { getContract } from "thirdweb";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { client } from "@/app/client";
 import { STAKING_ABI } from "@/constant/staking";
+import { chain } from "@/app/chain";
+import { formatUnits } from "ethers";
 
-const binanceChain = defineChain({
-  id: 56,
-  rpc: "https://bsc-dataseed.binance.org/",
-  nativeCurrency: {
-    name: "Binance Coin",
-    symbol: "BNB",
-      decimals: 18,
-    
-  },
-});
-
-const stakingContractAddress = "0x8492D8E17F3e520e171682D792B0eb79dC126B4E";
+const stakingContractAddress = "0x0047555764192c3627a854c04E0eA12ce258BcA8";
 const contract = getContract({
   address: stakingContractAddress,
-  chain: binanceChain,
+  chain: chain,
   client,
   abi: STAKING_ABI
 });
@@ -32,16 +23,16 @@ export default function StakeInfo() {
       "0xB2FE805A538E05a79a5a37AEc093D0b2a79233e9",
     ],
   });
-  console.log("🚀 ~ stakeInfo:", stakeInfo);
   
   if (!address) return <div>Connecting wallet...</div>;
   if (isLoading || stakeInfo === undefined)
     return <div>Loading staking info...</div>;
-
+  const [stakedTokenIds, rewards] = stakeInfo;
+  const formattedReward = parseFloat(formatUnits(rewards, 18)).toFixed(2);
   return (
     <div>
-      {/* <div>Staked Tokens: {tokensStaked.toString()}</div>
-      <div>Reward: {rewards.toString()}</div> */}
+      <div>Staked Tokens: {stakedTokenIds.length}</div>
+      <div>Reward: {formattedReward} TOKEN</div>
     </div>
   );
 }
