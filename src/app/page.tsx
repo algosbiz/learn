@@ -6,6 +6,7 @@ import ChatBox from "@/components/chatbox";
 import EventFetcher from "@/components/apitesting";
 import NebulaChat from "@/components/nebula";
 import StakeInfo from "@/components/stake-monitor";
+import { Staking } from "@/components/staking";
 const CryptoToFIatConverter = dynamic(
   () => import("@/components/cryptoConverter"),
   { ssr: false }
@@ -20,6 +21,7 @@ export default function Home() {
         <Navbar />
         <div className="w-full flex flex-col gap-10 justify-center text-center">
           <h1 className="text-black">Learning</h1>
+          <Staking/>
           <BalanceCard />
           <CryptoToFIatConverter />
           <NebulaChat/>
